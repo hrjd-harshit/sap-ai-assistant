@@ -1,0 +1,150 @@
+This is your **knowledge base** — the most important file! Open it and paste this to start:
+```
+SU01 is the SAP transaction used for user administration.
+It allows creating, modifying, locking, unlocking and deleting user accounts in SAP system.
+
+SU10 is used for mass user changes in SAP.
+It allows administrators to make changes to multiple users at once, such as mass password reset or mass role assignment.
+
+SU53 is used to display authorization check failures in SAP.
+When a user gets an authorization error, SU53 shows exactly which authorization object and field value failed.
+
+ST01 is the System Trace transaction in SAP.
+It is used to trace authorization checks in real time to troubleshoot access issues.
+
+STAUTHTRACE is an advanced authorization trace tool in SAP.
+It provides more detailed authorization trace compared to ST01 and is used for complex troubleshooting.
+
+PFCG is the Role Maintenance transaction in SAP.
+It is used to create, edit and maintain single roles, composite roles and derived roles.
+
+A Single Role contains authorization objects and field values directly assigned.
+A Composite Role is a collection of single roles grouped together.
+A Derived Role inherits menu and authorization data from a parent role but has different organizational values.
+
+SUIM is the User Information System in SAP.
+It is used to extract various reports like users by role, roles by user, users with specific authorizations etc.
+
+AGR tables store role related data in SAP.
+AGR_USERS stores user to role assignments. AGR_1251 stores authorization object data for roles.
+
+USR tables store user related data in SAP.
+USR02 stores logon data. USR04 stores user authorizations. USR21 stores user address data.
+
+SAP GRC stands for Governance Risk and Compliance.
+Access Risk Analysis (ARA) is used to detect Segregation of Duties (SOD) conflicts in user roles.
+Emergency Access Management (EAM) also called Firefighter is used to provide temporary privileged access to users in emergency situations.
+
+CUA stands for Central User Administration in SAP.
+It allows managing users centrally from one system across multiple SAP systems in a landscape.
+
+FFID stands for Firefighter ID in SAP GRC Emergency Access Management.
+It is a shared privileged account used temporarily by users during emergencies with full logging and monitoring.
+
+Profile Generator PFCG is used to create and maintain authorization roles in SAP.
+It allows administrators to assign transactions, authorization objects, and org levels to roles.
+Roles created in PFCG can be directly assigned to users via SU01.
+
+Authorization objects in SAP control what actions a user can perform.
+Each authorization object contains fields with specific values that define the level of access.
+Common authorization objects include S_TCODE for transaction access, S_USER_GRP for user group access.
+
+S_TCODE is the authorization object that controls access to SAP transactions.
+Every time a user tries to run a transaction, SAP checks the S_TCODE authorization object.
+If the user does not have the transaction in their role, access is denied.
+
+S_USER_GRP is the authorization object for user administration.
+It controls who can create, modify, or delete users in SAP.
+The activity field in S_USER_GRP defines what actions are allowed such as create, change, display, delete.
+
+Segregation of Duties (SOD) means that no single user should have access to perform two conflicting tasks.
+For example, a user who can create purchase orders should not also be able to approve them.
+SAP GRC Access Risk Analysis is used to detect and manage SOD conflicts.
+
+SAP roles are of different types: single roles, composite roles, derived roles, and reference roles.
+Single roles contain authorization objects and are directly assigned to users.
+Composite roles are a collection of single roles bundled together for easier assignment.
+Derived roles inherit the menu structure from a parent role but have different organizational level values.
+Reference roles are used as templates and cannot be directly assigned to users.
+
+Organizational levels in SAP roles define the scope of access such as company code, plant, or sales organization.
+When a role is derived, the child role gets the same transactions as the parent but different org level values.
+This is useful in large organizations where the same role structure exists across multiple company codes.
+
+SU10 is used for mass user administration in SAP.
+It allows administrators to perform actions on multiple users at once.
+Common use cases include mass role assignment, mass password reset, and mass user locking or unlocking.
+
+User types in SAP include Dialog, System, Communication, Service, and Reference users.
+Dialog users are for human users who log in interactively.
+System users are used for background jobs and RFC connections.
+Communication users are used for RFC connections without dialog access.
+Service users are shared users with limited authorizations.
+Reference users are used as templates to provide additional authorizations.
+
+Password policies in SAP can be configured using profile parameters.
+login/min_password_lng controls the minimum password length.
+login/password_expiration_time controls how often users must change their password.
+login/failed_user_auto_unlock controls whether locked users are automatically unlocked.
+login/max_failed_attempts controls how many failed login attempts lock a user.
+
+SAP audit logs are stored in the Security Audit Log (SAL).
+Transaction SM19 is used to configure the Security Audit Log.
+Transaction SM20 is used to display and analyze the Security Audit Log.
+The Security Audit Log records events like failed logon attempts, changes to user master records, and transaction usage.
+
+SUIM is the User Information System in SAP.
+It provides various reports for user and role administration.
+Common reports in SUIM include users by role, roles by user, users with specific authorization objects, and inactive users.
+
+AGR_USERS is the table that stores user to role assignments in SAP.
+AGR_1251 stores the authorization object data for each role.
+AGR_DEFINE stores the basic role definition information.
+USR02 stores user logon data including password hash and lock status.
+USR04 stores user authorization data.
+USR21 stores the mapping between username and address data.
+
+RFC connections in SAP are used for communication between SAP systems.
+Transaction SM59 is used to create and manage RFC connections.
+RFC users should be of type System or Communication and have minimal required authorizations.
+Unused RFC connections should be regularly reviewed and deleted for security purposes.
+
+SAP Basis is the technical foundation layer of SAP systems.
+Basis administrators manage system performance, transport management, user administration, and system security.
+Transaction STMS is used for Transport Management System to move changes between SAP systems.
+
+Critical authorizations in SAP are those that can be misused for fraud or system damage.
+Examples of critical authorizations include access to SE38 for ABAP development, SM69 for OS commands, and SE16 for direct table access.
+Critical authorization owners should be regularly reviewed and minimized.
+
+SAP GRC stands for Governance Risk and Compliance.
+It has three main modules: Access Control, Process Control, and Risk Management.
+Access Control includes Access Risk Analysis, Access Request Management, Emergency Access Management, and Business Role Management.
+
+Emergency Access Management in SAP GRC is also called Firefighter.
+It provides temporary privileged access to users during emergency situations.
+All actions performed under a Firefighter ID are logged and can be reviewed by auditors.
+Firefighter access should be time-limited and require proper approval.
+
+SAP S4HANA is the latest generation of SAP ERP built on the HANA in-memory database.
+Security in S4HANA follows similar principles as SAP ECC but with some new authorization objects.
+S4HANA uses Fiori as the primary user interface which requires additional Fiori-specific authorizations.
+
+SAP Fiori is the modern UI framework for SAP applications.
+Fiori apps require both backend ABAP authorizations and frontend Fiori catalog and group assignments.
+Transaction /UI2/FLP is used to access the Fiori Launchpad.
+OData services used by Fiori apps need to be activated in transaction /IWFND/MAINT_SERVICE.
+
+CUA stands for Central User Administration.
+It allows managing users centrally from one master system across multiple connected SAP systems.
+User changes made in the CUA master system are automatically distributed to child systems.
+Transaction SCUA is used to set up and manage CUA configuration.
+
+SAP license types include Professional User, Limited Professional User, Employee User, and Developer User.
+Regularly auditing user license types helps organizations avoid over-licensing costs.
+Users who have left the organization should be locked and eventually deleted to free up licenses.
+
+Transport requests in SAP are used to move configuration and development changes between systems.
+A typical SAP landscape has three systems: Development, Quality, and Production.
+Changes are developed in DEV, tested in QA, and then transported to Production.
+Transaction SE10 is used to manage and release transport requests.
