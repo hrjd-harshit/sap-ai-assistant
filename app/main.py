@@ -1,5 +1,6 @@
 from fastapi import FastAPI
-from fastapi.responses import JSONResponse
+from fastapi.responses import JSONResponse, FileResponse
+from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel
 from app.rag import get_answer
 import traceback
@@ -10,15 +11,14 @@ app = FastAPI(
     version="1.0.0"
 )
 
+app.mount("/static", StaticFiles(directory="static"), name="static")
+
 class Query(BaseModel):
     question: str
 
 @app.get("/")
 def root():
-    return {
-        "message": "Welcome to SAP AI Assistant! 🤖",
-        "usage": "Send a POST request to /ask with your SAP question"
-    }
+    return FileResponse("static/index.html")
 
 @app.post("/ask")
 def ask(query: Query):
