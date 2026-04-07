@@ -1,6 +1,5 @@
 venv/
 .env
 __pycache__/
-search_db/
 faiss_db/
 *.pyc
