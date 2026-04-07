@@ -342,29 +342,23 @@
         sendBtn.disabled = true;
         input.disabled = true;
 
-        try {
-            const response = await fetch('/ask', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: question })
-            });
+        const response = await fetch('/ask', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ question: question })
+        });
 
-            const data = await response.json();
+        const data = await response.json();
+        console.log('Response:', data);
 
-            // Replace typing with answer
-            document.getElementById(typingId).outerHTML = `
-                <div class="message ai">
-                    <div class="avatar ai">🤖</div>
-                    <div class="bubble">${data.answer}</div>
-                </div>`;
+        const answer = data.answer || data.result || data.message || JSON.stringify(data);
 
-        } catch (error) {
-            document.getElementById(typingId).outerHTML = `
-                <div class="message ai">
-                    <div class="avatar ai">🤖</div>
-                    <div class="bubble">⚠️ Error connecting to server. Make sure the FastAPI server is running!</div>
-                </div>`;
-        }
+        // Replace typing with answer
+        document.getElementById(typingId).outerHTML = `
+            <div class="message ai">
+                <div class="avatar ai">🤖</div>
+                <div class="bubble">${answer}</div>
+            </div>`;
 
         chat.scrollTop = chat.scrollHeight;
         sendBtn.disabled = false;
